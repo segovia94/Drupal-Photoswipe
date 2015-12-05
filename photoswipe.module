@@ -115,7 +115,7 @@ function photoswipe_page_attachments(array &$attachments) {
   // Conditionally load on an admin page
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if (\Drupal::config('photoswipe.settings')->get('photoswipe_always_load_non_admin') && $is_admin) {
-    photoswipe_load_assets();
+    photoswipe_load_assets($attachments);
   }
   // Load the Container HTML at the bottom of the page
   if (photoswipe_assets_loaded()) {
