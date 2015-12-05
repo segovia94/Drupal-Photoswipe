@@ -1,5 +1,8 @@
 photoswipe:
   remote: https://github.com/dimsemenov/PhotoSwipe/archive/v4.1.0.zip
+  license:
+    name: MIT
+    gpl-compatible: false
   css:
     /libraries/photoswipe/dist/photoswipe.css: {}
     /libraries/photoswipe/dist/default-skin/default-skin.css: {}
@@ -13,9 +16,12 @@ photoswipe:
 # Development Version
 photoswipe.dev:
   remote: https://github.com/dimsemenov/PhotoSwipe/archive/v4.1.0.zip
+  license:
+    name: MIT
+    gpl-compatible: false
   css:
-      /libraries/photoswipe/dist/photoswipe.css: {}
-      /libraries/photoswipe/dist/default-skin/default-skin.css: {}
+    /libraries/photoswipe/dist/photoswipe.css: {}
+    /libraries/photoswipe/dist/default-skin/default-skin.css: {}
   js:
     /libraries/photoswipe/dist/photoswipe.js: {}
     /libraries/photoswipe/dist/photoswipe-ui-default.js: {}
