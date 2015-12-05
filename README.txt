@@ -1,7 +1,7 @@
 DESCRIPTION
 ===========
 
-jQuery-based lightbox library offers very nice mobile browsing features (in
+Javascript lightbox library offers very nice mobile browsing features (in
 particular swiping to the next picture)!
 
 
@@ -17,8 +17,8 @@ sites/all/modules/photoswipe).
 
 3. Install third party PhotoSwipe software
      Download PhotoSwipe 4.x source from PhotoSwipe website
-     (e.g. https://github.com/dimsemenov/PhotoSwipe/archive/v4.0.5.zip)
-     Unarchive it into your "libraries" directory (e.g. sites/all/libraries).
+     (e.g. https://github.com/dimsemenov/PhotoSwipe/archive/v4.1.0.zip)
+     Unarchive it into your "libraries" directory (e.g. /libraries).
      You may need to create the "libraries" directory first.
      Rename it to "photoswipe" (lower case).
 NB: Relying on libraries module to locate 'photoswipe' folder allows you to place
@@ -57,4 +57,6 @@ It might be needed to load photoswipe assets in case they are not already loaded
 To do so just call
 photoswipe_load_assets();
 Or force them to load on all non-admin pages
-variable_set('photoswipe_always_load_non_admin', TRUE);
+\Drupal::config('photoswipe.settings')
+  ->set('photoswipe_always_load_non_admin', TRUE)
+  ->save();
