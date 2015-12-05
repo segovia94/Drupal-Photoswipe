@@ -5,35 +5,6 @@
  * Install, uninstall and update hooks for Photswipe module.
  */
 
-
-/**
- * Implements hook_enable().
- */
-function photoswipe_enable() {
-  // Set jquery 1.7 as the jquery_update version.
-  // @FIXME
-// // @FIXME
-// // This looks like another module's variable. You'll need to rewrite this call
-// // to ensure that it uses the correct configuration object.
-// if (variable_get('jquery_update_jquery_version', 0) < 1.7) {
-//     variable_set('jquery_update_jquery_version', '1.7');
-//   }
-
-}
-
-/**
- * Implements hook_uninstall().
- */
-function photoswipe_uninstall() {
-  // Remove photoswipe variables.
-  // @FIXME
-// db_delete('variable')
-//   ->condition('name', 'photoswipe_%', 'LIKE')
-//   ->execute();
-
-  cache_clear_all('variables', 'cache_bootstrap');
-}
-
 /**
  * Implements hook_requirements().
  */
