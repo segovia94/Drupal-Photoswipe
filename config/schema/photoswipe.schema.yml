@@ -1,0 +1,6 @@
+photoswipe.settings:
+  type: mapping
+  label: Settings
+  mapping:
+    photoswipe_always_load_non_admin:
+      type: boolean

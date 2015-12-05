@@ -24,11 +24,11 @@ function theme_photoswipe_image_formatter($variables) {
   $alt = !empty($item['alt']) ? $item['alt'] : '';
   $title = !empty($item['title']) ? $item['title'] : '';
 
-  if (empty($alt) && !empty($item['field_file_image_alt_text'][LANGUAGE_NONE])) {
-    $alt = $item['field_file_image_alt_text'][LANGUAGE_NONE][0]['value'];
+  if (empty($alt) && !empty($item['field_file_image_alt_text'][\Drupal\Core\Language\Language::LANGCODE_NOT_SPECIFIED])) {
+    $alt = $item['field_file_image_alt_text'][\Drupal\Core\Language\Language::LANGCODE_NOT_SPECIFIED][0]['value'];
   }
-  if (empty($title) && !empty($item['field_file_image_title_text'][LANGUAGE_NONE])) {
-    $title = $item['field_file_image_title_text'][LANGUAGE_NONE][0]['value'];
+  if (empty($title) && !empty($item['field_file_image_title_text'][\Drupal\Core\Language\Language::LANGCODE_NOT_SPECIFIED])) {
+    $title = $item['field_file_image_title_text'][\Drupal\Core\Language\Language::LANGCODE_NOT_SPECIFIED][0]['value'];
   }
   $image = array(
     'path' => $item['uri'],
@@ -55,7 +55,16 @@ function theme_photoswipe_image_formatter($variables) {
     $path = file_create_url($image['path']);
   }
 
-  return theme('photoswipe_imagefield', array('image' => $image, 'path' => $path, 'dimensions' => $dimensions['width'] . 'x' . $dimensions['height']));
+  // @FIXME
+// theme() has been renamed to _theme() and should NEVER be called directly.
+// Calling _theme() directly can alter the expected output and potentially
+// introduce security issues (see https://www.drupal.org/node/2195739). You
+// should use renderable arrays instead.
+// 
+// 
+// @see https://www.drupal.org/node/2195739
+// return theme('photoswipe_imagefield', array('image' => $image, 'path' => $path, 'dimensions' => $dimensions['width'] . 'x' . $dimensions['height']));
+
 }
 
 
@@ -72,10 +81,28 @@ function theme_photoswipe_image_formatter($variables) {
 function theme_photoswipe_imagefield($variables) {
   $class = array('photoswipe');
   if (!empty($variables['image']['style_name'])) {
-    $image = theme('image_style', $variables['image']);
+    // @FIXME
+// theme() has been renamed to _theme() and should NEVER be called directly.
+// Calling _theme() directly can alter the expected output and potentially
+// introduce security issues (see https://www.drupal.org/node/2195739). You
+// should use renderable arrays instead.
+// 
+// 
+// @see https://www.drupal.org/node/2195739
+// $image = theme('image_style', $variables['image']);
+
   }
   else {
-    $image = theme('image', $variables['image']);
+    // @FIXME
+// theme() has been renamed to _theme() and should NEVER be called directly.
+// Calling _theme() directly can alter the expected output and potentially
+// introduce security issues (see https://www.drupal.org/node/2195739). You
+// should use renderable arrays instead.
+// 
+// 
+// @see https://www.drupal.org/node/2195739
+// $image = theme('image', $variables['image']);
+
   }
 
   $options = array(
@@ -87,5 +114,8 @@ function theme_photoswipe_imagefield($variables) {
     )
   );
 
-  return l($image, $variables['path'], $options);
+  // @FIXME
+// l() expects a Url object, created from a route name or external URI.
+// return l($image, $variables['path'], $options);
+
 }
