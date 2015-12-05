@@ -112,11 +112,12 @@ function photoswipe_libraries_info() {
  * Implements hook_page_attachments().
  */
 function photoswipe_page_attachments(array &$attachments) {
+  // Conditionally load on an admin page
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
-
   if (\Drupal::config('photoswipe.settings')->get('photoswipe_always_load_non_admin') && $is_admin) {
     photoswipe_load_assets();
   }
+  // Load the Container HTML at the bottom of the page
   if (photoswipe_assets_loaded()) {
     $attachments['page_bottom']['photoswipe'] = array(
       '#theme' => 'photoswipe_container',
@@ -234,37 +235,14 @@ function photoswipe_field_formatter_view($entity_type, $entity, $field, $instanc
 /**
  * Loads photoswipe assets.
  */
-function photoswipe_load_assets() {
+function photoswipe_load_assets(array &$attachments) {
   if (!photoswipe_assets_loaded()) {
-    libraries_load('photoswipe');
+    // Add the library of Photoswipe assets
+    $attachments['#attached']['library'][] = 'photoswipe/photoswipe';
 
-    // @FIXME
-// The Assets API has totally changed. CSS, JavaScript, and libraries are now
-// attached directly to render arrays using the #attached property.
-// 
-// 
-// @see https://www.drupal.org/node/2169605
-// @see https://www.drupal.org/node/2408597
-// drupal_add_js(drupal_get_path('module', 'photoswipe') . '/js/photoswipe.jquery.js', array('scope' => 'footer'));
-
-
-    // @FIXME
-// Could not extract the default value because it is either indeterminate, or
-// not scalar. You'll need to provide a default value in
-// config/install/photoswipe.settings.yml and config/schema/photoswipe.schema.yml.
-$settings = \Drupal::config('photoswipe.settings')->get('photoswipe_settings');
-    // @FIXME
-// The Assets API has totally changed. CSS, JavaScript, and libraries are now
-// attached directly to render arrays using the #attached property.
-// 
-// 
-// @see https://www.drupal.org/node/2169605
-// @see https://www.drupal.org/node/2408597
-// drupal_add_js(array(
-//       'photoswipe' => array(
-//         'options' => $settings,
-//       ),
-//     ), array('type' => 'setting', 'scope' => JS_DEFAULT));
+    // Add photoswipe js settings.
+    $settings = \Drupal::config('photoswipe.settings')->get('photoswipe_settings');
+    $attachments['#attached']['drupalSettings']['photoswipe'] = $settings;
 
     photoswipe_assets_loaded(TRUE);
   }
