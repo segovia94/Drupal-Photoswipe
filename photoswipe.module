@@ -5,6 +5,8 @@
  * Photswipe integration with Drupal module.
  */
 
+use Drupal\Core\Routing\RouteMatchInterface;
+
 /**
  * The minimum PhotoSwipe version we support.
  */
@@ -32,11 +34,15 @@ function photoswipe_theme() {
 /**
  * Implements hook_help().
  */
-function photoswipe_help($path, $arg) {
-  switch ($path) {
+function photoswipe_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
     // Main module help for the photoswipe module
-    case 'admin/help#photoswipe':
-      return '<p>' . t('PhotoSwipe provides a nice javascript-based display for photo galleries, very sleek on mobile browsers.', array('!website' => \Drupal::l(t('PhotoSwipe website'), \Drupal\Core\Url::fromUri('http://www.photoswipe.com/')))) . '</p>';
+    case 'help.page.photoswipe':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('<a href=":url">Photoswipe</a> provides a nice javascript-based display for photo galleries, very sleek on mobile browsers.', array(
+        ':url' => 'http://www.photoswipe.com/')) . '</p>';
+      return $output;
   }
 }
 
