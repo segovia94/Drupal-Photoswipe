@@ -10,23 +10,6 @@
  */
 define('PHOTOSWIPE_MIN_PLUGIN_VERSION', '4.0.0');
 
-/**
- * Implements hook_menu().
- */
-function photoswipe_menu() {
-  $items = array();
-
-  $items['admin/config/media/photoswipe'] = array(
-    'title' => 'PhotoSwipe',
-    'description' => 'Adjust PhotoSwipe settings.',
-    'file' => 'photoswipe.admin.inc',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('photoswipe_admin_settings'),
-    'access arguments' => array('administer site configuration'),
-  );
-
-  return $items;
-}
 
 /**
  * Implements hook_theme().
@@ -78,7 +61,7 @@ function photoswipe_libraries_info() {
   $libraries['photoswipe'] = array(
     'name' => 'Photoswipe plugin',
     'vendor url' => 'http://photoswipe.com',
-    'download url' => 'https://github.com/dimsemenov/PhotoSwipe/archive/v4.0.5.zip',
+    'download url' => 'https://github.com/dimsemenov/PhotoSwipe/archive/v4.1.0.zip',
     'path' => 'dist',
     'version arguments' => array(
       'file' => 'dist/photoswipe.min.js',
@@ -126,14 +109,16 @@ function photoswipe_libraries_info() {
 }
 
 /**
- * Implements hook_page_build().
+ * Implements hook_page_attachments().
  */
-function photoswipe_page_build(&$page) {
-  if (\Drupal::config('photoswipe.settings')->get('photoswipe_always_load_non_admin') && !path_is_admin(\Drupal\Core\Url::fromRoute("<current>")->toString())) {
+function photoswipe_page_attachments(array &$attachments) {
+  $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
+
+  if (\Drupal::config('photoswipe.settings')->get('photoswipe_always_load_non_admin') && $is_admin) {
     photoswipe_load_assets();
   }
   if (photoswipe_assets_loaded()) {
-    $page['page_bottom']['photoswipe'] = array(
+    $attachments['page_bottom']['photoswipe'] = array(
       '#theme' => 'photoswipe_container',
     );
   }
