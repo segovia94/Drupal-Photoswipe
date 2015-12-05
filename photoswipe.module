@@ -16,29 +16,15 @@ define('PHOTOSWIPE_MIN_PLUGIN_VERSION', '4.0.0');
  */
 function photoswipe_theme() {
   return array(
-    'photoswipe_imagefield' => array(
-      'variables' => array(
-        'image' => array(),
-        'path' => NULL,
-        'dimension' => NULL,
-        'title' => NULL,
-        'gid' => NULL,
-      ),
-      'file' => 'photoswipe.theme.inc',
-    ),
     'photoswipe_image_formatter' => array(
       'variables' => array(
         'item' => NULL,
-        'node' => NULL,
-        'field' => array(),
         'display_settings' => array(),
       ),
       'file' => 'photoswipe.theme.inc',
     ),
     'photoswipe_container' => array(
       'variables' => array(),
-      'file' => 'photoswipe.theme.inc',
-      'template' => 'photoswipe-container',
     ),
   );
 }

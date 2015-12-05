@@ -98,29 +98,24 @@ class PhotoswipeFieldFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
-
-    $entity = $items->getEntity();
     $settings = $this->getSettings();
 
     if (!empty($items)) {
-      $element = array(
-        '#type' => 'container',
+      $elements = array(
         '#attributes' => array('class' => array('photoswipe-gallery')),
       );
-      photoswipe_load_assets($element);
+      photoswipe_load_assets($elements);
     }
 
     foreach ($items as $delta => $item) {
-      $element[$delta] = array(
+      $elements[$delta] = array(
         '#theme' => 'photoswipe_image_formatter',
         '#item' => $item,
-        '#node' => $entity,
-//        '#field' => $field,
         '#display_settings' => $settings,
       );
     }
 
-    return $element;
+    return $elements;
   }
 
 }
