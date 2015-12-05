@@ -8,7 +8,7 @@
 /**
  * The PhotoSwipe plugin URI.
  */
-define('PHOTOSWIPE_DOWNLOAD_URL', 'https://github.com/dimsemenov/PhotoSwipe/archive/v4.0.5.zip');
+define('PHOTOSWIPE_DOWNLOAD_URL', 'https://github.com/dimsemenov/PhotoSwipe/archive/v4.1.0.zip');
 define('PHOTOSWIPE_DOWNLOAD_PREFIX', 'PhotoSwipe-');
 
 /**
@@ -37,7 +37,7 @@ function photoswipe_drush_command() {
 function photoswipe_drush_help($section) {
   switch ($section) {
     case 'drush:photoswipe-plugin':
-      return dt('Download and install the PhotoSwipe plugin from GitHub, default location is sites/all/libraries.');
+      return dt('Download and install the PhotoSwipe plugin from GitHub, default location is /libraries.');
   }
 }
 
@@ -60,7 +60,7 @@ function drush_photoswipe_plugin() {
     $path = $args[0];
   }
   else {
-    $path = 'sites/all/libraries';
+    $path = 'libraries';
   }
 
   // Create the path if it does not exist.
