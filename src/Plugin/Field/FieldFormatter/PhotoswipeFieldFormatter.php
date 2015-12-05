@@ -90,7 +90,7 @@ class PhotoswipeFieldFormatter extends FormatterBase {
       $summary[] = t('photoswipe image style: Original image');
     }
 
-    return implode('<br />', $summary);
+    return $summary;
   }
 
   /**
