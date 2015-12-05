@@ -114,15 +114,21 @@ function photoswipe_libraries_info() {
 function photoswipe_page_attachments(array &$attachments) {
   // Conditionally load on an admin page
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
+
   if (\Drupal::config('photoswipe.settings')->get('photoswipe_always_load_non_admin') && $is_admin) {
     photoswipe_load_assets($attachments);
   }
+}
+
+/**
+ * Implements hook_page_bottom().
+ */
+function photoswipe_page_bottom(array &$page_bottom) {
   // Load the Container HTML at the bottom of the page
   if (photoswipe_assets_loaded()) {
-    // @FIXME: Only #attached and #cache may be set in hook_page_attachments()
-//    $attachments['page_bottom']['photoswipe'] = array(
-//      '#theme' => 'photoswipe_container',
-//    );
+    $page_bottom['photoswipe'] = array(
+      '#theme' => 'photoswipe_container',
+    );
   }
 }
 

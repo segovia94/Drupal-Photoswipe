@@ -107,7 +107,7 @@ class PhotoswipeFieldFormatter extends FormatterBase {
         '#type' => 'container',
         '#attributes' => array('class' => array('photoswipe-gallery')),
       );
-      photoswipe_load_assets($element[0]);
+      photoswipe_load_assets($element);
     }
 
     foreach ($items as $delta => $item) {

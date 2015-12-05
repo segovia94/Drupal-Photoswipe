@@ -3,3 +3,4 @@ description: 'Javascript-based photo gallery display for your Drupal website (ve
 core: 8.x
 type: module
 package: Media
+configure: photoswipe.admin_settings
