@@ -4,14 +4,12 @@ photoswipe:
     name: MIT
     gpl-compatible: false
   css:
-    /libraries/photoswipe/dist/photoswipe.css: {}
-    /libraries/photoswipe/dist/default-skin/default-skin.css: {}
+    component:
+      /libraries/photoswipe/dist/photoswipe.css: {}
+      /libraries/photoswipe/dist/default-skin/default-skin.css: {}
   js:
     /libraries/photoswipe/dist/photoswipe.min.js: { minified: true }
     /libraries/photoswipe/dist/photoswipe-ui-default.min.js: { minified: true }
-    js/photoswipe.js: {}
-  dependencies:
-    - core/jquery
 
 # Development Version
 photoswipe.dev:
@@ -20,10 +18,15 @@ photoswipe.dev:
     name: MIT
     gpl-compatible: false
   css:
-    /libraries/photoswipe/dist/photoswipe.css: {}
-    /libraries/photoswipe/dist/default-skin/default-skin.css: {}
+    component:
+      /libraries/photoswipe/dist/photoswipe.css: {}
+      /libraries/photoswipe/dist/default-skin/default-skin.css: {}
   js:
     /libraries/photoswipe/dist/photoswipe.js: {}
     /libraries/photoswipe/dist/photoswipe-ui-default.js: {}
+
+photoswipe.init:
+  js:
+    js/photoswipe.jquery.js: {}
   dependencies:
     - core/jquery

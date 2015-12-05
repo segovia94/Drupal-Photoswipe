@@ -125,10 +125,12 @@ function photoswipe_load_assets(array &$attachments) {
   if (!photoswipe_assets_loaded()) {
     // Add the library of Photoswipe assets
     $attachments['#attached']['library'][] = 'photoswipe/photoswipe';
+    // Load initialization file
+    $attachments['#attached']['library'][] = 'photoswipe/photoswipe.init';
 
     // Add photoswipe js settings.
     $settings = \Drupal::config('photoswipe.settings')->get('photoswipe_settings');
-    $attachments['#attached']['drupalSettings']['photoswipe'] = $settings;
+    $attachments['#attached']['drupalSettings']['photoswipe']['options'] = photoswipe_get_default_settings();
 
     photoswipe_assets_loaded(TRUE);
   }
