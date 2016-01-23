@@ -21,6 +21,7 @@ use Drupal\image\Entity\ImageStyle;
 function template_preprocess_photoswipe_image_formatter(&$variables) {
   $item = $variables['item'];
   $settings = $variables['display_settings'];
+  $node = $item->getParent()->getParent()->getValue();
   $uri = $item->entity->getFileUri();
   $alt = !empty($item->alt) ? $item->alt : '';
   $title = !empty($item->title) ? $item->title : '';
@@ -66,11 +67,35 @@ function template_preprocess_photoswipe_image_formatter(&$variables) {
     $image['#theme'] = 'image';
   }
 
+  // Set Caption for this image
+  if (isset($settings['photoswipe_caption'])) {
+    $caption_setting = $settings['photoswipe_caption'];
+    switch ($caption_setting) {
+      case 'alt':
+        $caption = $alt;
+        break;
+      case 'title':
+        $caption = $title;
+        break;
+      case 'node_title':
+        $caption = $node->title->value;
+        break;
+      default:
+        $field_view = $node->{$caption_setting}->view();
+        $field_view['#view_mode'] = ($settings['photoswipe_view_mode']) ? $settings['photoswipe_view_mode'] : 'default';
+        $caption = render($field_view);
+        break;
+    }
+  }
+  else {
+    $caption = $alt;
+  }
+
   $variables['image'] = $image;
   $variables['path'] = $path;
   $variables['attributes'] = array(
     'class' => 'photoswipe',
     'data-size' => $dimensions['width'] . 'x' . $dimensions['height'],
-    'data-overlay-title' => $title,
+    'data-overlay-title' => $caption,
   );
 }

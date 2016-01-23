@@ -30,6 +30,8 @@ class PhotoswipeFieldFormatter extends FormatterBase {
     return array(
       'photoswipe_node_style' => '',
       'photoswipe_image_style' => '',
+      'photoswipe_caption' => '',
+      'photoswipe_view_mode' => '',
     ) + parent::defaultSettings();
   }
 
@@ -55,6 +57,33 @@ class PhotoswipeFieldFormatter extends FormatterBase {
       '#empty_option' => t('None (original image)'),
       '#options' => $image_styles,
       '#description' => t('Image style to use in the Photoswipe.'),
+    );
+
+    // Set our caption options
+    $caption_options = array(
+      'title' => t('Image Title Tag'),
+      'alt' => t('Image Alt Tag'),
+      'node_title' => t('Node Title'),
+    );
+    // Add the other node fields as options
+    foreach ($form['#fields'] as $node_field) {
+      if ($node_field != $this->fieldDefinition->getName()) {
+        $caption_options[$node_field] = $node_field;
+      }
+    }
+
+    $element['photoswipe_caption'] = array(
+      '#title' => t('Photoswipe image caption'),
+      '#type' => 'select',
+      '#default_value' => $this->getSetting('photoswipe_caption'),
+      '#options' => $caption_options,
+      '#description' => t('Field that should be used for the caption.'),
+    );
+
+    // Add the current view mode so we can control the view mode for node fields.
+    $element['photoswipe_view_mode'] = array(
+      '#type' => 'hidden',
+      '#value' => $this->viewMode,
     );
 
     return $element + parent::settingsForm($form, $form_state);
@@ -86,6 +115,21 @@ class PhotoswipeFieldFormatter extends FormatterBase {
     }
     else {
       $summary[] = t('photoswipe image style: Original image');
+    }
+
+    if ($this->getSetting('photoswipe_caption')) {
+      $caption_options = array(
+        'alt' => t('Image Alt Tag'),
+        'title' => t('Image Title Tag'),
+        'node_title' => t('Node Title'),
+      );
+      if (array_key_exists($this->getSetting('photoswipe_caption'), $caption_options)) {
+        $caption_setting = $caption_options[$this->getSetting('photoswipe_caption')];
+      }
+      else {
+        $caption_setting = $this->getSetting('photoswipe_caption');
+      }
+      $summary[] = t('Photoswipe Caption: @field', array('@field' => $caption_setting));
     }
 
     return $summary;
